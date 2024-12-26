@@ -1,5 +1,7 @@
 from Movie.movie_manager import MovieManager
+from Cinema.cinema_manager import CinemaManager
 movieManager = MovieManager()
+cinemaManager = CinemaManager()
 
 def add_movie():
     print("Add Movie")
@@ -21,6 +23,15 @@ def edit_movie():
 def view_movies():
     movieManager.view_all_movies()
 
+def add_cinema():
+    cinema_name = input("Enter cinema name: ")
+    showing = input("Enter movie to show: ")
+    print(cinemaManager.add_new_cinema(cinema_name,showing))
+
+def remove_cinema():
+    cinema_name = input("Enter cinema name: ")
+    print(cinemaManager.delete_cinema(cinema_name))
+
 def main():
     print("Welcome, Admin!")
     while True:
@@ -28,6 +39,8 @@ def main():
                     "\n2. Remove movie"
                     "\n3. Edit movie details"
                     "\n4. View all movies"
+                    "\n5. Add new cinema"
+                    "\n6. Remove cinema"
                     "\n5. Exit"
                     "\nYour choice (1-5): ")
         match choice:
@@ -35,7 +48,7 @@ def main():
             case "2": remove_movie()
             case "3": edit_movie()
             case "4": view_movies()
-            case "5": break
+            case "5": add_cinema()
             case _: print("1-5 only, try again")
 
 main()
