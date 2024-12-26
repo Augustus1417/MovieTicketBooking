@@ -9,4 +9,17 @@ class Ticket:
         self.seating = seating
     
     def __str__(self):
-        return f"Reference ID: {self.reference_id}\nMovie Details:\n{self.movie_details}\nSchedule: {self.schedule}\nCinema: {self.cinema}\nSeating: {self.seating}"
+        ticket_info = [
+            f"Reference ID: {self.reference_id}",
+            f"Movie Details: {self.movie_details}",
+            f"Schedule: {self.schedule}",
+            f"Cinema: {self.cinema}",
+            f"Seating: {self.seating}"
+        ]
+        max_length = max(len(line) for line in ticket_info)
+        result = "+" + "-" * (max_length + 2) + "+\n"
+        for line in ticket_info:
+            result += f"| {line.ljust(max_length)} |\n"
+        result += "+" + "-" * (max_length + 2) + "+"
+        return result
+            

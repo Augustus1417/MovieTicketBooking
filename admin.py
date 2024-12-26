@@ -2,7 +2,7 @@ from Movie.movie_manager import MovieManager
 from Cinema.cinema_manager import CinemaManager
 from datetime import datetime
 movieManager = MovieManager()
-cinemaManager = CinemaManager()
+cinemaManager = CinemaManager(movieManager)
 
 def add_movie():
     print("Add Movie")
@@ -12,8 +12,8 @@ def add_movie():
     print(movieManager.add_new_movie(title,duration,genre))
 
 def remove_movie():
-    title = input("Enter title to delete: ")
-    print(movieManager.delete_movie(title))
+    reference_id = input("Enter reference ID to delete: ")
+    print(movieManager.delete_movie(reference_id))
 
 def edit_movie():
     title = input("Enter title to edit: ")

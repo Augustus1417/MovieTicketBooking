@@ -1,9 +1,9 @@
 from Cinema.cinema import Cinema
-import json
+import json, string, random
 from datetime import datetime
 
 class CinemaManager:
-    def __init__(self):
+    def __init__(self, movie_list):
         with open("Cinema\cinemas.json", "r") as file:
                 data = json.load(file)
                 self.cinemas = {
@@ -14,19 +14,22 @@ class CinemaManager:
                     )
                     for reference_id, cinema_data in data.items()
                 }
-                for reference_id, cinema in self.cinemas.items():
-                    cinema.reference_id = reference_id
+        self.movie_list = movie_list
 
     def view_all_cinemas(self):
         for cinema in self.cinemas.values():
             print(cinema, "\n")
 
     def add_new_cinema(self, cinema_name, schedule, showing):
-        schedule_str = schedule.strftime("%Y-%m-%d %H:%M")
-        new_cinema = Cinema(cinema_name, schedule_str ,showing)
-        self.cinemas[new_cinema.reference_id] = new_cinema
-        self.update_json()
-        return f"{cinema_name} added successfully."
+        for movie in self.movie_list.movie_list.values():
+            if movie.title == showing:
+                schedule_str = schedule.strftime("%Y-%m-%d %H:%M")
+                reference_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+                new_cinema = Cinema(cinema_name, schedule_str ,showing)
+                self.cinemas[reference_id] = new_cinema
+                self.update_json()
+                return f"{cinema_name} added successfully."
+        return f"{showing} is not in the system."
 
     def delete_cinema(self, reference_id):
         try: 
@@ -42,7 +45,7 @@ class CinemaManager:
 
     def update_json(self):
         data_to_save = {
-            cinema.reference_id: {
+            reference_id: {
                 "cinema_name": cinema.cinema_name,
                 "schedule": cinema.schedule.strftime("%Y-%m-%d %H:%M")
                 if isinstance(cinema.schedule, datetime)
@@ -50,7 +53,7 @@ class CinemaManager:
                 "showing": cinema.showing,
                 "seats": cinema.seats
             }
-            for cinema in self.cinemas.values()
+            for reference_id, cinema in self.cinemas.items()
         }
         with open("Cinema\cinemas.json", "w") as file:
             json.dump(data_to_save, file, indent=4)

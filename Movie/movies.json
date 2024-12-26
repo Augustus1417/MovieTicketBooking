@@ -1,7 +1,27 @@
 {
-    "Transformers": {
-        "title": "Transformers",
-        "duration": "1 hour",
-        "genre": "Sci-Fi"
+    "MOO4A": {
+        "title": "Mufasa: The Lion King",
+        "duration": "1h 58m",
+        "genre": "Adventure"
+    },
+    "ECTH7": {
+        "title": "Sonic the Hedgehog 3",
+        "duration": "1h 49m",
+        "genre": "Action"
+    },
+    "3J65T": {
+        "title": "Homestead",
+        "duration": "1h 50m",
+        "genre": "Action"
+    },
+    "ZTWBE": {
+        "title": "Survive",
+        "duration": "1h 30m",
+        "genre": "Thriller"
+    },
+    "D5OQQ": {
+        "title": "Nosferatu",
+        "duration": "2h 12m",
+        "genre": "Horror"
     }
 }
