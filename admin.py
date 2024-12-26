@@ -1,4 +1,4 @@
-from movie_manager import MovieManager
+from Movie.movie_manager import MovieManager
 movieManager = MovieManager()
 
 def add_movie():

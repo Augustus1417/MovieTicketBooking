@@ -1,9 +1,9 @@
-from movie import Movie
+from Movie.movie import Movie
 import json
 
 class MovieManager:
     def __init__(self):
-        with open("movies.json", "r") as file:
+        with open("Movie\movies.json", "r") as file:
                 data = json.load(file)
                 self.movie_list = {
                     title: Movie(movie_data["title"], movie_data["duration"], movie_data["genre"])
@@ -21,9 +21,11 @@ class MovieManager:
         return f"{title} has been added to the system."
 
     def delete_movie(self, title): 
-        del self.movie_list[title]
-        self.update_json()
-        return f"{title} has been deleted from the system."
+        try: 
+            del self.movie_list[title]
+            self.update_json()
+            return f"{title} has been deleted from the system."
+        except: return f"{title} was not found in the system, try again."
 
     def edit_details(self, title, detail, new_detail):
         try:
@@ -48,5 +50,5 @@ class MovieManager:
             title: {"title": movie.title, "duration": movie.duration, "genre": movie.genre}
             for title, movie in self.movie_list.items()
         }
-        with open("movies.json", "w") as file:
+        with open("Movie\movies.json", "w") as file:
             json.dump(data_to_save, file, indent=4)
