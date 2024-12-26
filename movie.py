@@ -1,8 +1,7 @@
-class Movie:
-    def __init__(self, title, year, genre):
+class Movie():
+    def __init__(self, title, duration, genre) -> None:
         self.title = title
-        self.year = year
+        self.duration = duration
         self.genre = genre
     
-    def __str__(self):
-        return f"Movie Title: {self.title}\nYear: {self.year}\nGenre: {self.genre}"
+    def __str__(self) -> str: return f"Title: {self.title}\nGenre: {self.duration}\nDuration: {self.genre}" 
