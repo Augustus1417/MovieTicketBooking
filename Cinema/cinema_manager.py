@@ -17,8 +17,8 @@ class CinemaManager:
         self.movie_list = movie_list
 
     def view_all_cinemas(self):
-        for cinema in self.cinemas.values():
-            print(cinema, "\n")
+        for reference_id, cinema in self.cinemas.items():
+            print(f"\nReference ID: {reference_id}\n{cinema}\n")
 
     def add_new_cinema(self, cinema_name, schedule, showing):
         for movie in self.movie_list.movie_list.values():
@@ -42,6 +42,13 @@ class CinemaManager:
         self.cinemas[reference_id].seats[row][column] = 1
         self.update_json()
         return f"Seat assigned successfully."
+    
+    def view_available_cinema(self, movie_id):
+        try: movie_title = self.movie_list.movie_list[movie_id].title
+        except: print(f"{movie_id} was not found in the system, try again")
+        for reference_id, cinema in self.cinemas.items():
+            if cinema.title == movie_title:
+                print(f"\nReference ID: {reference_id}\n{cinema}\n")
 
     def update_json(self):
         data_to_save = {

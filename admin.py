@@ -25,8 +25,14 @@ def view_movies():
     movieManager.view_all_movies()
 
 def add_cinema():
-    month_name = input("Input month (e.g., January): ")
-    try: month_number = datetime.strptime(month_name, "%B").month
+    year = input("Input year (e.g., 2024): ")
+    try: year_string = datetime.strptime(year, "%Y").year
+    except ValueError:
+        print("Invalid year. Please try again.")
+        return
+
+    month_name = input("Input month (e.g., Jan): ")
+    try: month_number = datetime.strptime(month_name, "%b").month
     except ValueError:
         print("Invalid month name. Please try again.")
         return
@@ -39,7 +45,7 @@ def add_cinema():
         print("Invalid input. Please enter numbers for day, hour, and minute.")
         return
     
-    try: schedule = datetime(2024, month_number, day, hour, minute)
+    try: schedule = datetime(year_string, month_number, day, hour, minute)
     except ValueError as e:
         print(f"Invalid date or time: {e}")
         return
@@ -65,7 +71,7 @@ def main():
                     "\n6. Remove cinema"
                     "\n7. View all cinemas"
                     "\n8. Exit"
-                    "\nYour choice (1-5): ")
+                    "\nYour choice (1-8): ")
         match choice:
             case "1": add_movie()
             case "2": remove_movie()
@@ -75,6 +81,6 @@ def main():
             case "6": remove_cinema()
             case "7": view_cinemas()
             case "8": break
-            case _: print("1-5 only, try again")
+            case _: print("1-8 only, try again")
 
 main()
