@@ -102,7 +102,17 @@ def cancel_ticket():
     ticket_id = input("Enter ticket ID: ")
     print(ticketManager.cancel_ticket(ticket_id))
 
-def view_movies(): movieManager.view_all_movies()
+def view_movies(): 
+    os.system("cls")
+    print("""
+  __  __            _           
+ |  \/  |          (_)          
+ | \  / | _____   ___  ___  ___ 
+ | |\/| |/ _ \ \ / / |/ _ \/ __|
+ | |  | | (_) \ V /| |  __/\__ \\
+ |_|  |_|\___/ \_/ |_|\___||___/ """)
+    line(50)
+    movieManager.view_all_movies()
 
 def main():
     os.system('cls')
@@ -132,3 +142,4 @@ def main():
             case _: print("1-5 only, try again.")
 
 main()
+os.system("cls")
