@@ -16,7 +16,7 @@ class MovieManager:
             print(f"\nReference ID: {reference_id}\n{movie}\n")
 
     def add_new_movie(self,title, duration, genre):
-        reference_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+        reference_id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
         new_movie = Movie(title, duration, genre)
         self.movie_list[reference_id] = new_movie
         self.update_json()

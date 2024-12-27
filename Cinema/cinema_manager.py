@@ -6,7 +6,7 @@ class CinemaManager:
     def __init__(self, movie_list):
         with open("Cinema\cinemas.json", "r") as file:
                 data = json.load(file)
-                self.cinemas = {
+                self.cinemas = { # hashmap created from the json file
                     reference_id: Cinema(
                         cinema_name=cinema_data["cinema_name"],
                         schedule=datetime.strptime(cinema_data["schedule"], "%Y-%m-%d %H:%M"),
@@ -25,7 +25,7 @@ class CinemaManager:
         for movie in self.movie_list.movie_list.values():
             if movie.title == showing:
                 schedule_str = schedule.strftime("%Y-%m-%d %H:%M")
-                reference_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+                reference_id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
                 seats = [[0 for _ in range(10)] for _ in range(5)]
                 new_cinema = Cinema(cinema_name, schedule_str ,showing, seats)
                 self.cinemas[reference_id] = new_cinema
@@ -45,6 +45,13 @@ class CinemaManager:
             self.cinemas[reference_id].seats[row][column] = 1
             self.update_json()
             return "Seat assigned successfully."
+        else: False
+    
+    def remove_seat(self, reference_id, row, column):
+        if self.cinemas[reference_id].seats[row][column] == 1:
+            self.cinemas[reference_id].seats[row][column] = 0
+            self.update_json()
+            return "Seat removed successfully."
         else: False
     
     def view_available_cinema(self, movie_id):
