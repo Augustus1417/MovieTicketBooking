@@ -1,10 +1,10 @@
 class Ticket:
-    def __init__(self, reference_id ,movie_details, cinema, seat_row, seat_column, movie_list, cinema_list):
+    def __init__(self, reference_id ,movie_details, cinema, seat_column, seat_row, movie_list, cinema_list):
         self.reference_id = reference_id
         self.movie_details = movie_details
         self.cinema = cinema
-        self.seat_row = seat_row
         self.seat_column = seat_column
+        self.seat_row = seat_row
         self.movie_list = movie_list
         self.cinema_list = cinema_list
     
@@ -17,7 +17,7 @@ class Ticket:
             f"Reference ID: {self.reference_id}",
             movie_summary,
             cinema_summary,
-            f"Seat: {self.seat_row}-{self.seat_column}",
+            f"Seat: {self.seat_column}-{self.seat_row}",
         ]
 
         ticket_lines = [line for section in ticket_info for line in section.split("\n")]

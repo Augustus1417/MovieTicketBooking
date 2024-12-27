@@ -24,13 +24,14 @@ def choose_seat(cinema_id):
                                 |___/ """)
     line(40)
     print("\n",cinemaManager.show_seats(cinema_id))
-    row = int(input("\nInput desired row (vertical: 1-5): "))
-    column = int(input("Input desired column (horizontal: 1-10): "))
-    if cinemaManager.assign_seat(cinema_id,row-1,column-1) == False:
+    column = int(input("\nInput desired column (vertical: 0-4): "))
+    row = int(input("Input desired row (horizontal: 0-9): "))
+    if cinemaManager.assign_seat(cinema_id,column,row) == False:
         print("Seat is occupied")
+        return False
     else: 
         os.system("cls")
-        return row, column
+        return column, row
 
 def book_cinema(movie_id):
     os.system('cls')
@@ -48,7 +49,7 @@ def book_cinema(movie_id):
         return cinema_id
     else: 
         print("Invalid cinema ID")
-        return
+        return False
 
 def book_ticket():
     os.system("cls")
@@ -65,9 +66,15 @@ ______             _      _____ _      _        _
     if movieManager.validate_id(movie_id):
         line(50)
         cinema_id = book_cinema(movie_id)
-    else: print("Invalid movie ID")
-    row, column = choose_seat(cinema_id)
-    ticketManager.add_new_ticket(movie_id,cinema_id,row,column)
+    else: 
+        print("Invalid movie ID")
+        return
+    if cinema_id == False:
+        return
+    try:
+        column, row = choose_seat(cinema_id)
+        ticketManager.add_new_ticket(movie_id,cinema_id,column,row)
+    except: print("Ticket was not booked, try again")
 
 def view_your_ticket():
     os.system("cls")

@@ -26,7 +26,7 @@ class CinemaManager:
             if movie.title == showing:
                 schedule_str = schedule.strftime("%Y-%m-%d %H:%M")
                 reference_id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
-                seats = [[0 for _ in range(10)] for _ in range(5)]
+                seats = [["O" for _ in range(10)] for _ in range(5)]
                 new_cinema = Cinema(cinema_name, schedule_str ,showing, seats)
                 self.cinemas[reference_id] = new_cinema
                 self.update_json()
@@ -40,19 +40,19 @@ class CinemaManager:
             return f"{reference_id} has been deleted from the system."
         except: return f"{reference_id} was not found in the system, try again."
     
-    def assign_seat(self, reference_id, row, column):
-        if self.cinemas[reference_id].seats[row][column] == 0:
-            self.cinemas[reference_id].seats[row][column] = 1
+    def assign_seat(self, reference_id, column, row):
+        if self.cinemas[reference_id].seats[column][row] == "O":
+            self.cinemas[reference_id].seats[column][row] = "X"
             self.update_json()
             return "Seat assigned successfully."
-        else: False
+        else: return False
     
-    def remove_seat(self, reference_id, row, column):
-        if self.cinemas[reference_id].seats[row][column] == 1:
-            self.cinemas[reference_id].seats[row][column] = 0
+    def remove_seat(self, reference_id, column, row):
+        if self.cinemas[reference_id].seats[column][row] == "X":
+            self.cinemas[reference_id].seats[column][row] = "O"
             self.update_json()
             return "Seat removed successfully."
-        else: False
+        else: return False
     
     def view_available_cinema(self, movie_id):
         try: movie_title = self.movie_list.movie_list[movie_id].title
