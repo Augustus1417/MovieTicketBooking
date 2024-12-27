@@ -42,6 +42,11 @@ class MovieManager:
             return f"{old_title} edited successfully: \n{self.movie_list[reference_id]}"
         except: return f"{old_title} was not found in the system, try again."
     
+    def validate_id(self, movie_id):
+        for reference_id in self.movie_list.keys():
+            if reference_id == movie_id: return True
+        return False
+
     def update_json(self):
         data_to_save = {
             reference_id: {"title": movie.title, "duration": movie.duration, "genre": movie.genre}

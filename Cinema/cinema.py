@@ -1,13 +1,9 @@
 class Cinema:
-    def __init__(self,cinema_name, schedule, showing):
+    def __init__(self,cinema_name, schedule, showing, seats):
         self.cinema_name = cinema_name
         self.schedule = schedule
         self.showing = showing
-        self.seats = [[0,0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0,0],
-                      [0,0,0,0,0,0,0,0,0,0]]
+        self.seats = seats
 
     def get_cinema_name(self): return self.cinema_name
     def get_schedule(self): return self.schedule

@@ -10,7 +10,8 @@ class CinemaManager:
                     reference_id: Cinema(
                         cinema_name=cinema_data["cinema_name"],
                         schedule=datetime.strptime(cinema_data["schedule"], "%Y-%m-%d %H:%M"),
-                        showing=cinema_data["showing"]
+                        showing=cinema_data["showing"],
+                        seats=cinema_data["seats"]
                     )
                     for reference_id, cinema_data in data.items()
                 }
@@ -25,7 +26,8 @@ class CinemaManager:
             if movie.title == showing:
                 schedule_str = schedule.strftime("%Y-%m-%d %H:%M")
                 reference_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
-                new_cinema = Cinema(cinema_name, schedule_str ,showing)
+                seats = [[0 for _ in range(10)] for _ in range(5)]
+                new_cinema = Cinema(cinema_name, schedule_str ,showing, seats)
                 self.cinemas[reference_id] = new_cinema
                 self.update_json()
                 return f"{cinema_name} added successfully."
@@ -39,16 +41,26 @@ class CinemaManager:
         except: return f"{reference_id} was not found in the system, try again."
     
     def assign_seat(self, reference_id, row, column):
-        self.cinemas[reference_id].seats[row][column] = 1
-        self.update_json()
-        return f"Seat assigned successfully."
+        if self.cinemas[reference_id].seats[row][column] == 0:
+            self.cinemas[reference_id].seats[row][column] = 1
+            self.update_json()
+            return "Seat assigned successfully."
+        else: False
     
     def view_available_cinema(self, movie_id):
         try: movie_title = self.movie_list.movie_list[movie_id].title
         except: print(f"{movie_id} was not found in the system, try again")
         for reference_id, cinema in self.cinemas.items():
-            if cinema.title == movie_title:
-                print(f"\nReference ID: {reference_id}\n{cinema}\n")
+            if cinema.showing == movie_title:
+                print(f"\nReference ID: {reference_id}\n{cinema.cinema_name}\n{cinema.schedule}")
+    
+    def validate_id(self,cinema_id):
+        for reference_id in self.cinemas.keys():
+            if reference_id == cinema_id: return True
+        return False
+    
+    def show_seats(self, cinema_id):
+        return f"\t{self.cinemas[cinema_id].get_seat()}"
 
     def update_json(self):
         data_to_save = {
